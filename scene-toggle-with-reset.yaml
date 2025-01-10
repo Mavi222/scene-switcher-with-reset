@@ -107,11 +107,11 @@ sequence:
 
           {% set is_reset = reset_after > 0 and (as_timestamp(now()) - last_triggered >= reset_after) %}
 
-           {% set unknown_scenes = expand(all_scenes) | selectattr('state', 'eq', 'unknown') | map(attribute='entity_id') | list %}
-           {% set scenes_sorted_by_activation = expand(all_scenes) | sort(attribute='state', reverse = true) | map(attribute='entity_id') | reject('in', unknown_scenes) | list %}
-           {% set last_activated_scene = scenes_sorted_by_activation[0] %}
-           {% set index_of_last_activated_scene = all_scenes.index(last_activated_scene) %}
-           {% set new_index = index_of_last_activated_scene + 1 %}
+          {% set unknown_scenes = expand(all_scenes) | selectattr('state', 'eq', 'unknown') | map(attribute='entity_id') | list %}
+          {% set scenes_sorted_by_activation = expand(all_scenes) | sort(attribute='state', reverse = true) | map(attribute='entity_id') | reject('in', unknown_scenes) | list %}
+          {% set last_activated_scene = scenes_sorted_by_activation[0] %}
+          {% set index_of_last_activated_scene = all_scenes.index(last_activated_scene) %}
+          {% set new_index = index_of_last_activated_scene + 1 %}
 
           {% set index_of_reset_scene = all_scenes.index(reset_scene) %}
 
