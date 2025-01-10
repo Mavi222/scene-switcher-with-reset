@@ -118,7 +118,7 @@ sequence:
             {% set new_index = index_of_last_activated_scene + 1 %}
 
             {% if new_index == all_scenes | count %}
-              {{ reset_scene }}
+              {{ all_scenes[0] }}
             {% else %}
               {{ all_scenes[new_index] }}
             {% endif %}
