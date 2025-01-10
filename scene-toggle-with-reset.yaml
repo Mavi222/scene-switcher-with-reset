@@ -107,7 +107,10 @@ sequence:
 
           {% set is_reset = reset_after > 0 and (as_timestamp(now()) - last_triggered >= reset_after) %}
 
-          {% if is_reset == true %}
+          {% set index_of_last_activated_scene = all_scenes.index(last_activated_scene) %}
+          {% set index_of_reset_scene = all_scenes.index(reset_scene) %}
+
+          {% if is_reset == true and index_of_last_activated_scene != index_of_reset_scene %}
             {{ reset_scene }}
           {% else %}
             
