@@ -1,3 +1,22 @@
+blueprint:
+  name: Scene Toggle with reset
+  description: >
+
+    ## Features
+
+    - toggle through scenes by order or last activated timestamp
+
+    - define a transition time
+
+    - select scenes by area and/or include/exclude specific scenes
+
+    - timeout for beginning at start if using static order
+
+    - settable reset scene (with everything off)
+
+  source_url: https://github.com/Mavi222/scene-switcher-with-reset/blob/main/scene-toggle-with-reset.yaml
+  domain: script
+
   input:
     area:
       name: Name of area
@@ -89,7 +108,7 @@ sequence:
           {% set is_reset = reset_after > 0 and (as_timestamp(now()) - last_triggered >= reset_after) %}
 
           {% if is_reset == true %}
-            {{ all_scenes[0] }}
+            {{ reset_scene }}
           {% else %}
             
             {% set unknown_scenes = expand(all_scenes) | selectattr('state', 'eq', 'unknown') | map(attribute='entity_id') | list %}
