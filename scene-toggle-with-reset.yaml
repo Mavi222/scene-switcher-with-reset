@@ -25,6 +25,16 @@
           filter:
             domain: scene
           multiple: true
+          
+    reset_scene:
+      name: Reset scene
+      description: Scene to reset
+      default: []
+      selector:
+        entity:
+          filter:
+            domain: scene
+          multiple: false
 
     transition:
       name: Transition time
@@ -61,6 +71,7 @@ variables:
   area: !input "area"
   included_scenes: !input "included_scenes"
   excluded_scenes: !input "excluded_scenes"
+  reset_scene: !input "reset_scene"
   reset_after: !input "reset_after"
   use_static_order: !input use_static_order
   last_triggered: "{{ as_timestamp(iif(state_attr(this.entity_id,'last_triggered') == none, now(), state_attr(this.entity_id,'last_triggered'))) }}"
@@ -88,7 +99,7 @@ sequence:
             {% set new_index = index_of_last_activated_scene + 1 %}
 
             {% if new_index == all_scenes | count %}
-              {{ all_scenes[0] }}
+              {{ reset_scene }}
             {% else %}
               {{ all_scenes[new_index] }}
             {% endif %}
